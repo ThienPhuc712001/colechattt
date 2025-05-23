@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild, AfterViewChecked } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+
+
 @Component({
   selector: 'app-chat-popup',
   standalone: true,
@@ -12,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class ChatPopupComponent implements AfterViewChecked {
   isOpen = false;
   messages: { sender: string, content: string }[] = [
-    { sender: 'Hỗ trợ', content: 'Chào bạn! Chúng tôi có thể giúp gì cho bạn?' }
+    { sender: 'Hỗ trợ', content: 'Xin chào, tôi là một trợ lý ảo của Cole. Hãy hỏi tôi thông tin liên quan tới Cole!' }
   ];
   newMessage = '';
 
@@ -22,13 +24,28 @@ export class ChatPopupComponent implements AfterViewChecked {
     this.isOpen = !this.isOpen;
   }
 
-  sendMessage() {
+  async sendMessage() {
     if (this.newMessage.trim()) {
-      this.messages.push({ sender: 'Bạn', content: this.newMessage });
+      this.messages.push({ sender: '', content: this.newMessage });
+      try {
+        const response = await fetch('https://localhost:7132/api/OpenAi/ask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: this.newMessage })
+      });
       this.newMessage = '';
-      setTimeout(() => {
-        this.messages.push({ sender: 'Hỗ trợ', content: 'Cảm ơn bạn! Chúng tôi sẽ phản hồi sớm.' });
-      }, 1000);
+      const data = await response.json();
+      console.log("response" , data);
+      let message = await data.reply;
+       
+       await this.messages.push({ sender: 'Hỗ trợ', content: message });
+      } catch (error) {
+        console.log(error);
+        
+      }
+
     }
   }
 
