@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChatPopupComponent } from './chat-popup/chat-popup.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [ChatPopupComponent], // Nhập ChatPopupComponent
+  template: '<app-chat-popup></app-chat-popup>'
 })
 export class AppComponent {
   title = 'cole-chat';

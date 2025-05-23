@@ -1,0 +1,17 @@
+<div class="chat-popup" [class.open]="isOpen">
+  <div class="chat-icon" (click)="toggleChat()">
+    <img src="assets/chat-icon.png" alt="Chat Icon" class="chat-bubble-icon" *ngIf="!isOpen" />
+    <span class="close-btn" *ngIf="isOpen">×</span>
+  </div>
+  <div class="chat-body" *ngIf="isOpen">
+    <div class="messages" #messagesContainer>
+      <div *ngFor="let msg of messages" [class.user]="msg.sender === 'Bạn'" [class.support]="msg.sender === 'Hỗ trợ'">
+        <strong>{{ msg.sender }}:</strong> {{ msg.content }}
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Nhập tin nhắn..." />
+      <button (click)="sendMessage()">Gửi</button>
+    </div>
+  </div>
+</div>
