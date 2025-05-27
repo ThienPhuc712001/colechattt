@@ -4,12 +4,14 @@
     <!-- Thanh header khi popup mở -->
     <div class="chat-header" *ngIf="isOpen">
       <div style="display: flex; align-items: center;">
- <img src="assets/Vector.png" alt="back-btn"  />
-      <img src="assets/cole-assistants-icon.svg.png" alt="Cole Assistants" class="cole-assistants-icon" />
+        <img src="assets/Vector.png" alt="back-btn" />
+        <img src="assets/cole-assistants-icon.svg.png" alt="Cole Assistants" class="cole-assistants-icon" />
       </div>
       <div>
-        <span class="close-btn"><img src="assets/Vector 3.png" alt="Cole Assistants" class="cole-assistants-icon" /></span>
-      <span class="close-btn"><img src="assets/Vector 2.png" alt="Cole Assistants" class="cole-assistants-icon" /></span>
+        <span class="close-btn"><img src="assets/Vector 3.png" alt="Cole Assistants"
+            class="cole-assistants-icon" /></span>
+        <span class="close-btn"><img src="assets/Vector 2.png" alt="Cole Assistants"
+            class="cole-assistants-icon" /></span>
       </div>
     </div>
   </div>
@@ -26,8 +28,8 @@
     <div class="chat-input">
       <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Nhập và nhấn gửi " />
       <div>
-        <button (click)="sendMessage()"><img src="assets/Group.png" alt="Cole Assistants"  /></button>
-        <button (click)="sendMessage()"><img src="assets/Vector 4.png" alt="Cole Assistants"  /></button>
+        <button (click)="sendMessage()"><img src="assets/Group.png" alt="Cole Assistants" /></button>
+        <button (click)="sendMessage()"><img src="assets/Vector 4.png" alt="Cole Assistants" /></button>
       </div>
     </div>
   </div>
