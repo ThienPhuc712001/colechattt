@@ -103,6 +103,7 @@
     }
 
     .support-icon {
+      margin-top: 5px;
       width: 48px;
       height: 48px;
       margin-right: 10px;
@@ -140,6 +141,10 @@
     }
   }
 
+  .messages.submited {
+    margin: 10px;
+  }
+
   .chat-input {
     display: flex;
     padding: 10px;
@@ -169,9 +174,11 @@
 }
 
 .form-container {
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  // height: 85%;
+  height: 96%;
 
   form {
     display: flex;
@@ -179,6 +186,10 @@
     flex-direction: column;
     width: 345px;
     padding: 20px;
+  }
+
+  form.maximized {
+    width: 1400px;
   }
 
   input {

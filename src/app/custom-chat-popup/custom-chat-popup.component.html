@@ -8,8 +8,8 @@
                 <img src="assets/cole-assistants-icon.svg.png" alt="Cole Assistants" class="cole-assistants-icon" />
             </div>
             <div>
-                <span class="close-btn"><img src="assets/Vector 3.png" alt="Cole Assistants"
-                        class="cole-assistants-icon" (click)="toogleMaximined($event)" />
+                <span class="close-btn"><img [src]="isMaximized ? 'assets/minimized_icon.png' : 'assets/Vector 3.png' "
+                        alt="Cole Assistants" class="cole-assistants-icon" (click)="toogleMaximined($event)" />
                 </span>
                 <span class="close-btn"><img src="assets/Vector 2.png" alt="Cole Assistants"
                         class="cole-assistants-icon" /></span>
@@ -18,7 +18,7 @@
     </div>
     <div class="chat-body" *ngIf="isOpen" [class.maximized]="isMaximized">
 
-        <div class="messages" *ngIf="!formSubmitted">
+        <div class="messages" *ngIf="!formSubmitted" [class.submited]="formSubmitted">
             <!-- <form (ngSubmit)="onSubmit()" #formRef="ngForm">
                     <label for="fname">First name:</label><br />
                     <input type="text" id="fname" name="fname" [(ngModel)]="firstName" required /><br />
@@ -33,7 +33,7 @@
                     ảo tìm hiểu
                     các khóa học của
                     chúng tôi!</div>
-                <form (ngSubmit)="onSubmit()" #formRef="ngForm"
+                <form (ngSubmit)="onSubmit()" #formRef="ngForm" [class.maximized]="isMaximized"
                     style="height: 70%; padding: 20px;margin: 20px; background-color: white;">
                     <input type="text" name="name" placeholder="Họ và tên" name="fname" [(ngModel)]="firstName"
                         required>
@@ -73,7 +73,7 @@
                 </span>
             </div>
         </div>
-        <div class="messages" *ngIf="formSubmitted" #messagesContainer>
+        <div class="messages" *ngIf="formSubmitted" #messagesContainer [class.submited]="formSubmitted">
             <div *ngFor="let msg of messages" [class.user]="msg.sender === ''"
                 [class.support]="msg.sender === 'Hỗ trợ'">
                 <img src="assets/icon-1.png" alt="Support Icon" class="support-icon" *ngIf="msg.sender === 'Hỗ trợ'" />
