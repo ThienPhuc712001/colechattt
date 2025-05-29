@@ -1,20 +1,37 @@
 <div class="chat-popup" [class.open]="isOpen">
-    <div class="chat-icon" (click)="toggleChat()" [class.maximized]="isMaximized">
+    <div class="chat-icon" (click)="toggleChat()" [class.maximized]="isMaximized" [class.submited]="!formSubmitted">
         <img src="assets/chat-icon.png" alt="Chat Icon" class="chat-bubble-icon" *ngIf="!isOpen" />
         <!-- Thanh header khi popup mở -->
         <div class="chat-header" *ngIf="isOpen">
-            <div style="display: flex; align-items: center;">
-                <img src="assets/Vector.png" alt="back-btn" />
-                <img src="assets/cole-assistants-icon.svg.png" alt="Cole Assistants" class="cole-assistants-icon" />
-            </div>
-            <div>
-                <span class="close-btn"><img [src]="isMaximized ? 'assets/minimized_icon.png' : 'assets/Vector 3.png' "
-                        alt="Cole Assistants" class="cole-assistants-icon" (click)="toogleMaximined($event)" />
-                </span>
-                <span class="close-btn"><img src="assets/Vector 2.png" alt="Cole Assistants"
-                        class="cole-assistants-icon" /></span>
-            </div>
+            <!-- Nếu formSubmitted là true -->
+            <ng-container *ngIf="formSubmitted; else notSubmitted">
+                <div style="display: flex; align-items: center;">
+                    <img src="assets/Vector.png" alt="back-btn" />
+                    <img src="assets/cole-assistants-icon.svg.png" alt="Cole Assistants" class="cole-assistants-icon" />
+                </div>
+                <div>
+                    <span class="close-btn">
+                        <img [src]="isMaximized ? 'assets/minimized_icon.png' : 'assets/Vector 3.png'"
+                            alt="Cole Assistants" class="cole-assistants-icon" (click)="toogleMaximined($event)" />
+                    </span>
+                    <span class="close-btn">
+                        <img src="assets/Vector 2.png" alt="Cole Assistants" class="cole-assistants-icon" />
+                    </span>
+                </div>
+            </ng-container>
+
+            <!-- Nếu formSubmitted là false -->
+            <ng-template #notSubmitted>
+                <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                    <span class="close-btn" style="display: flex; align-items: center;">
+                        <img style="display: flex; align-items: center; margin: auto 5px ;" src="assets/Vector 2.png"
+                            alt="Cole Assistants" class="cole-assistants-icon" />
+                    </span>
+                </div>
+
+            </ng-template>
         </div>
+
     </div>
     <div class="chat-body" *ngIf="isOpen" [class.maximized]="isMaximized">
 
@@ -26,7 +43,7 @@
                     <input type="text" id="lname" name="lname" [(ngModel)]="lastName" required /><br /><br />
                     <input type="submit" value="Submit" />
                 </form> -->
-            <div class="form-container" style="background-color:#0F75BCCC ; width: 100%;">
+            <div class="form-container" style="background-color:#0F75BC ; width: 100%; height: 508px;">
                 <div style="margin: 20px; color: white;">Bạn vui lòng điền form bên dưới để bắt đầu
                     trò
                     chuyện với trợ lý
@@ -34,31 +51,37 @@
                     các khóa học của
                     chúng tôi!</div>
                 <form (ngSubmit)="onSubmit()" #formRef="ngForm" [class.maximized]="isMaximized"
-                    style="height: 70%; padding: 20px;margin: 20px; background-color: white;">
-                    <input type="text" name="name" placeholder="Họ và tên" name="fname" [(ngModel)]="firstName"
-                        required>
-                    <input type="email" name="email" placeholder="Địa chỉ email" name="fname" [(ngModel)]="email"
-                        required>
-                    <div style="display: flex">
-                        <select name="country-code" style="padding: 8px; font-size: 14px; height: 33.6px; ">
-                            <option value="+84">+84</option>
-                            <option value="+1">+1</option>
-                            <option value="+61">+61</option>
-                        </select>
-                        <input type="tel" name="phone" placeholder="Số điện thoại" required [(ngModel)]="phone"
-                            style="flex: 1; margin-bottom: 0 !important;">
-                    </div>
+                    style=" background-color: white;">
+                    <div style="display: flex; flex-wrap: wrap; flex-direction: column; margin: 20px;padding: 20px;">
+                        <input style="width: 100%;" type="text" name="name" placeholder="Họ và tên" name="fname"
+                            [(ngModel)]="firstName" required>
+                        <input style="width: 100%;" type="email" name="email" placeholder="Địa chỉ email" name="fname"
+                            [(ngModel)]="email" required>
+                        <div
+                            style="display: flex; width: 100%; border: solid 1px rgba(15, 117, 188, 0.8);border-radius: 5px; margin: 0; padding: 8px; margin-bottom: 10px;">
+                            <select name="country-code"
+                                style="font-size: 14px; border: none; border-right: solid 1px rgba(15, 117, 188, 0.8);border-radius: 0px; padding: 0 8px;">
+                                <option value="+84">+84</option>
+                                <option value="+1">+1</option>
+                                <option value="+61">+61</option>
+                                <option value="" selected disabled></option>
+                            </select>
+                            <input type="tel" name="phone" placeholder="Số điện thoại" required [(ngModel)]="phone"
+                                style="flex: 1; margin-bottom: 0 !important; border: none; padding: 0 8px;">
+                        </div>
 
-                    <textarea name="message" placeholder="Lời nhắn bạn gửi tới chúng tôi"
-                        style="margin-top: 10px; margin-bottom: 20px; padding: 8px;" [(ngModel)]="message"></textarea>
-                    <div style="display: flex; margin: 0;">
-                        <button type="submit"
-                            style="align-items: center; margin: 8px auto; padding: 10px 40px; width: 70%; background-color: #0F75BCCC; outline: none; border: none; color: white; border-radius: 8px; display: flex; justify-content: center;">
-                            <span>Hoàn tất</span>
-                            <span style="margin-left: 8px;">
-                                <img src="assets/send_icon.png" alt="Send" style="width: 20px; height: 20px;" />
-                            </span>
-                        </button>
+                        <textarea name="message" placeholder="Lời nhắn bạn gửi tới chúng tôi"
+                            style="margin-top: 10px; padding: 8px;width: 100%; font-family: Arial, Helvetica, sans-serif;"
+                            [(ngModel)]="message"></textarea>
+                        <div style="display: flex; margin: 0;">
+                            <button type="submit"
+                                style="align-items: center; margin: 15px auto; padding: 10px 40px; width: 170px; height: 39px; background-color: #0F75BC; outline: none; border: none; color: white; border-radius: 8px; display: flex; justify-content: center;">
+                                <span>Hoàn tất</span>
+                                <span style="margin-left: 8px;">
+                                    <img src="assets/send_icon.png" alt="Send" style="width: 20px; height: 20px;" />
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -84,13 +107,13 @@
             </div>
             <div style="display: flex; justify-content: end; flex-direction: column;">
                 <button (click)="handleQuestion(1)"
-                    style="padding: 10px; border: 1px solid #0F75BCCC;; background-color: white; outline: none; color: #0F75BCCC; border-radius: 5px; font-size: 14px; margin-left: auto; margin-bottom: 10px;">Giới
+                    style="padding: 10px; border: 1px solid #0F75BC;; background-color: white; outline: none; color: #0F75BC; border-radius: 5px; font-size: 14px; margin-left: auto; margin-bottom: 10px;">Giới
                     thiệu về Cole?</button>
                 <button (click)="handleQuestion(2)"
-                    style="padding: 10px; border: 1px solid #0F75BCCC;; background-color: white; outline: none; color: #0F75BCCC; border-radius: 5px; font-size: 14px; margin-left: auto; margin-bottom: 10px;">Thông
+                    style="padding: 10px; border: 1px solid #0F75BC;; background-color: white; outline: none; color: #0F75BC; border-radius: 5px; font-size: 14px; margin-left: auto; margin-bottom: 10px;">Thông
                     tin giảng viên ở Cole?</button>
                 <button (click)="handleQuestion(3)"
-                    style="padding: 10px; border: 1px solid #0F75BCCC;; background-color: white; outline: none; color: #0F75BCCC; border-radius: 5px; font-size: 14px; margin-left: auto; margin-bottom: 10px;">Cole
+                    style="padding: 10px; border: 1px solid #0F75BC;; background-color: white; outline: none; color: #0F75BC; border-radius: 5px; font-size: 14px; margin-left: auto; margin-bottom: 10px;">Cole
                     đào tạo các khóa học nào?</button>
             </div>
         </div>
